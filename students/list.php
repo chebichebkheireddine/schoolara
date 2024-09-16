@@ -6,7 +6,7 @@ require_once '../config.php';
 $sql_classes = "SELECT id, name FROM classes";
 $result_classes = $conn->query($sql_classes);
 
-$sql = "SELECT students.id, students.name, students.birthday, students.phone_number, students.parent_phone_number, student_classes.start_date, student_classes.end_date, classes.name as class_name, classes.num_group, student_classes.paid, student_classes.payment_date 
+$sql = "SELECT students.id, students.name, students.birthday, students.phone_number, students.parent_phone_number, student_classes.start_date,student_classes.class_id, student_classes.end_date, classes.name as class_name, classes.num_group, student_classes.paid, student_classes.payment_date 
         FROM students 
         JOIN student_classes ON students.id = student_classes.student_id 
         JOIN classes ON student_classes.class_id = classes.id";
@@ -185,7 +185,8 @@ $result = $conn->query($sql);
                             data-bs-toggle="modal" data-bs-target="#viewStudentModal">View</a>
                         <a href="#" class="btn btn-warning edit-student" data-id="<?php echo $row['id']; ?>"
                             data-bs-toggle="modal" data-bs-target="#editStudentModal">Edit</a>
-                        <a href="#" class="btn btn-danger delete-student" data-id="<?php echo $row['id']; ?>">Delete</a>
+                        <a href="#" class="btn btn-danger delete-student"
+                            data-id="<?php echo $row['class_id']; ?>">Delete</a>
                     </td>
                 </tr>
                 <?php endwhile; ?>

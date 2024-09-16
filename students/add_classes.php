@@ -2,20 +2,27 @@
 require_once '../auth_check.php'; // Inclure la vérification de session
 require_once '../config.php';
 
+
+
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $student_id = $_POST['student_id'];
+    // $sql= "slect * from students where id= $student_id ";
+    // $result = $conn->query($sql); 
+    // $text= $result-> fetch_assoc();
     $class_ids = $_POST['class_id'];
     $enrollment_dates = $_POST['enrollment_date'];
     $months = $_POST['months'];
     $paid_statuses = $_POST['paid'];
-    $payment_dates = $_POST['payment_date'];
+    
 
     for ($i = 0; $i < count($class_ids); $i++) {
         $class_id = $class_ids[$i];
         $enrollment_date = $enrollment_dates[$i];
         $end_date = date('Y-m-d', strtotime("+{$months[$i]} months", strtotime($enrollment_date)));
         $paid = ($paid_statuses[$i] === 'Paid') ? 1 : 0;
-        $payment_date = $payment_dates[$i];
+        $payment_date = $enrollment_dates[$i];
 
         $sql = "INSERT INTO student_classes (student_id, class_id, start_date, end_date, paid, payment_date) 
                 VALUES (?, ?, ?, ?, ?, ?)";
@@ -41,7 +48,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <div class="container mt-5">
-        <h1>Add Classes for Student</h1>
+        <h1>Name
+        </h1>
+
         <form action="add_classes.php" method="post">
             <input type="hidden" name="student_id" value="<?php echo $_GET['student_id']; ?>">
             <div id="class-container">
@@ -79,15 +88,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <option value="Pending">Pending</option>
                         </select>
                     </div>
-                    <div class="col-md-2">
-                        <label for="payment_date_0" class="form-label">Payment Date</label>
-                        <input type="date" class="form-control" id="payment_date_0" name="payment_date[]" required>
-                    </div>
                 </div>
             </div>
 
-            <button type="button" class="btn btn-secondary" id="addClass">Add Another Class</button>
-            <button type="submit" class="btn btn-primary">Add Classes</button>
+            <button type="button" class="btn btn-secondary" id="addClass">Add</button>
+            <button type="button" class="btn btn-secondary" id="addClass">Delet</button>
+            <button type="submit" class="btn btn-primary">Save</button>
+
         </form>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

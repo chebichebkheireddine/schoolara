@@ -63,8 +63,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    <div class="container mt-5">
-        <h1>Add New Student</h1>
+    <div class="container mt-3">
+
         <form action="add.php" method="post" enctype="multipart/form-data">
             <div class="row mb-3">
                 <div class="col-md-4">
