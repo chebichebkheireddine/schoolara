@@ -22,36 +22,46 @@ $classes = $conn->query("SELECT id, name FROM classes");
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Absence List</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/boostarb/style.css" rel="stylesheet">
     <style>
-        body {
-            display: flex;
-        }
-        .sidebar {
-            width: 250px;
-            height: 100vh;
-            background-color: #343a40;
-            color: white;
-            padding: 20px;
-            position: fixed; /* Make sidebar fixed */
-            top: 0;
-            left: 0;
-        }
-        .main-content {
-            margin-left: 250px; /* Adjust for the fixed sidebar width */
-            padding: 20px;
-            width: calc(100% - 250px); /* Adjust the width of main content */
-        }
-        .nav-link {
-            text-decoration: none; /* Remove underline from nav links */
-            color: white; /* Set text color to white */
-        }
+    body {
+        display: flex;
+    }
+
+    .sidebar {
+        width: 250px;
+        height: 100vh;
+        background-color: #343a40;
+        color: white;
+        padding: 20px;
+        position: fixed;
+        /* Make sidebar fixed */
+        top: 0;
+        left: 0;
+    }
+
+    .main-content {
+        margin-left: 250px;
+        /* Adjust for the fixed sidebar width */
+        padding: 20px;
+        width: calc(100% - 250px);
+        /* Adjust the width of main content */
+    }
+
+    .nav-link {
+        text-decoration: none;
+        /* Remove underline from nav links */
+        color: white;
+        /* Set text color to white */
+    }
     </style>
 </head>
+
 <body>
     <div class="sidebar">
         <h2><a href="../index.php" class="nav-link text-white">Dashboard</a></h2>
@@ -84,7 +94,7 @@ $classes = $conn->query("SELECT id, name FROM classes");
         <table class="table table-bordered">
             <thead>
                 <tr>
-                   
+
                     <th>Student</th>
                     <th>Class</th>
                     <th>Date</th>
@@ -93,25 +103,26 @@ $classes = $conn->query("SELECT id, name FROM classes");
             </thead>
             <tbody>
                 <?php while ($row = $result->fetch_assoc()): ?>
-                    <tr>
-                        
-                        <td><?php echo $row['student_name']; ?></td>
-                        <td><?php echo $row['class_name']; ?></td>
-                        <td><?php echo $row['date']; ?></td>
-                        <td>
-                            <form method="POST" action="delete.php" style="display:inline;">
-                                <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
-                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
+                <tr>
+
+                    <td><?php echo $row['student_name']; ?></td>
+                    <td><?php echo $row['class_name']; ?></td>
+                    <td><?php echo $row['date']; ?></td>
+                    <td>
+                        <form method="POST" action="delete.php" style="display:inline;">
+                            <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
                 <?php endwhile; ?>
             </tbody>
         </table>
         <a href="../index.php" class="btn btn-secondary mt-3">Back to Menu</a>
 
         <!-- Modal -->
-        <div class="modal fade" id="addAbsenceModal" tabindex="-1" aria-labelledby="addAbsenceModalLabel" aria-hidden="true">
+        <div class="modal fade" id="addAbsenceModal" tabindex="-1" aria-labelledby="addAbsenceModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -124,7 +135,8 @@ $classes = $conn->query("SELECT id, name FROM classes");
                                 <label for="student_id" class="form-label">Student</label>
                                 <select class="form-select" id="student_id" name="student_id" required>
                                     <?php while ($student = $students->fetch_assoc()): ?>
-                                        <option value="<?php echo $student['id']; ?>"><?php echo $student['name']; ?></option>
+                                    <option value="<?php echo $student['id']; ?>"><?php echo $student['name']; ?>
+                                    </option>
                                     <?php endwhile; ?>
                                 </select>
                             </div>
@@ -132,7 +144,7 @@ $classes = $conn->query("SELECT id, name FROM classes");
                                 <label for="class_id" class="form-label">Class</label>
                                 <select class="form-select" id="class_id" name="class_id" required>
                                     <?php while ($class = $classes->fetch_assoc()): ?>
-                                        <option value="<?php echo $class['id']; ?>"><?php echo $class['name']; ?></option>
+                                    <option value="<?php echo $class['id']; ?>"><?php echo $class['name']; ?></option>
                                     <?php endwhile; ?>
                                 </select>
                             </div>
@@ -152,6 +164,7 @@ $classes = $conn->query("SELECT id, name FROM classes");
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
 
 <?php
