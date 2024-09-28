@@ -15,57 +15,15 @@ $result = $conn->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teachers List</title>
     <link href="../assets/boostarb/style.css" rel="stylesheet">
-    <style>
-    body {
-        display: flex;
-    }
+    <link href="../assets/css/styles.css" rel="stylesheet">
 
-    .sidebar {
-        width: 250px;
-        height: 100vh;
-        background-color: #343a40;
-        color: white;
-        padding: 20px;
-        position: fixed;
-    }
-
-    .main-content {
-        flex: 1;
-        margin-left: 250px;
-        padding: 20px;
-    }
-
-    .nav-link {
-        text-decoration: none;
-        color: white;
-    }
-    </style>
 </head>
 
 <body>
-    <div class="sidebar">
-        <h2><a href="../index.php" class="nav-link text-white">Dashboard</a></h2>
-        <ul class="nav flex-column">
-            <li class="nav-item">
-                <a href="../classes/list.php" class="nav-link text-white">Manage Classes</a>
-            </li>
-            <li class="nav-item">
-                <a href="../students/list.php" class="nav-link text-white">Manage Students</a>
-            </li>
-            <li class="nav-item">
-                <a href="list.php" class="nav-link text-white">Manage Teachers</a>
-            </li>
-            <li class="nav-item">
-                <a href="../absence/list.php" class="nav-link text-white">Manage Absences</a>
-            </li>
-            <li class="nav-item">
-                <a href="../backup.php" class="nav-link text-white">Backup & Restore</a>
-            </li>
-            <li class="nav-item">
-                <a href="../logout.php" class="nav-link text-white">Logout</a>
-            </li>
-        </ul>
-    </div>
+
+    <?php
+    include("../sidebar.php");
+    ?>
     <div class="main-content">
         <h1>Teachers List</h1>
         <a href="#" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addTeacherModal">Add New

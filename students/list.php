@@ -21,68 +21,15 @@ $result = $conn->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Students List</title>
     <link href="../assets/boostarb/style.css" rel="stylesheet">
-    <style>
-    body {
-        display: flex;
-    }
-
-    .sidebar {
-        width: 250px;
-        height: 100vh;
-        background-color: #343a40;
-        color: white;
-        padding: 20px;
-        position: fixed;
-    }
-
-    .main-content {
-        flex: 1;
-        margin-left: 250px;
-        padding: 20px;
-    }
-
-    .red {
-        background-color: #f8d7da !important;
-    }
-
-    .orange {
-        background-color: #fff3cd !important;
-    }
-
-    .green {
-        background-color: #d4edda !important;
-    }
-
-    #classSelect {
-        display: none;
-    }
-    </style>
+    <link href="../assets/css/styles.css" rel="stylesheet">
 </head>
 
 <body>
-    <div class="sidebar">
-        <h2><a href="../index.php" class="nav-link text-white">Dashboard</a></h2>
-        <ul class="nav flex-column">
-            <li class="nav-item">
-                <a href="../classes/list.php" class="nav-link text-white">Manage Classes</a>
-            </li>
-            <li class="nav-item">
-                <a href="list.php" class="nav-link text-white">Manage Students</a>
-            </li>
-            <li class="nav-item">
-                <a href="../teachers/list.php" class="nav-link text-white">Manage Teachers</a>
-            </li>
-            <li class="nav-item">
-                <a href="../absence/list.php" class="nav-link text-white">Manage Absences</a>
-            </li>
-            <li class="nav-item">
-                <a href="../backup.php" class="nav-link text-white">Backup & Restore</a>
-            </li>
-            <li class="nav-item">
-                <a href="../logout.php" class="nav-link text-white">Logout</a>
-            </li>
-        </ul>
-    </div>
+
+    <!-- Php code Index  -->
+    <?php
+    include("../sidebar.php");
+    ?>
     <div class="main-content">
         <h1>Students List</h1>
 
@@ -113,8 +60,8 @@ $result = $conn->query($sql);
                                 <label for="class_id" class="form-label">Select Class:</label>
                                 <select id="class_id" name="class_id" class="form-select">
                                     <?php while ($row_class = $result_classes->fetch_assoc()): ?>
-                                    <option value="<?php echo $row_class['id']; ?>"><?php echo $row_class['name']; ?>
-                                    </option>
+                                        <option value="<?php echo $row_class['id']; ?>"><?php echo $row_class['name']; ?>
+                                        </option>
                                     <?php endwhile; ?>
                                 </select>
                             </div>
@@ -159,41 +106,41 @@ $result = $conn->query($sql);
             </thead>
             <tbody>
                 <?php if ($result->num_rows > 0): ?>
-                <?php while($row = $result->fetch_assoc()): ?>
-                <?php
-                            $payment_end = strtotime($row['end_date']);
-                            $today = strtotime(date("Y-m-d"));
-                            $diff = ($payment_end - $today) / (60 * 60 * 24);
-                            $color_class = '';
-                            if ($diff > 2) {
-                                $color_class = 'green';
-                            } elseif ($diff > 0 && $diff <= 2) {
-                                $color_class = 'orange';
-                            } else {
-                                $color_class = 'red';
-                            }
+                    <?php while ($row = $result->fetch_assoc()): ?>
+                        <?php
+                        $payment_end = strtotime($row['end_date']);
+                        $today = strtotime(date("Y-m-d"));
+                        $diff = ($payment_end - $today) / (60 * 60 * 24);
+                        $color_class = '';
+                        if ($diff > 2) {
+                            $color_class = 'green';
+                        } elseif ($diff > 0 && $diff <= 2) {
+                            $color_class = 'orange';
+                        } else {
+                            $color_class = 'red';
+                        }
                         ?>
-                <tr>
-                    <td><?php echo $row['id']; ?></td>
-                    <td><?php echo $row['name']; ?></td>
-                    <td><?php echo $row['class_name'] . " (" . $row['num_group'] . ")"; ?></td>
-                    <td><?php echo $row['start_date']; ?></td>
-                    <td class="<?php echo $color_class; ?>"><?php echo $row['end_date']; ?></td>
-                    <td><?php echo $row['paid'] ? 'Paid' : 'Not Paid'; ?></td>
-                    <td>
-                        <a href="#" class="btn btn-info view-student" data-id="<?php echo $row['id']; ?>"
-                            data-bs-toggle="modal" data-bs-target="#viewStudentModal">View</a>
-                        <a href="#" class="btn btn-warning edit-student" data-id="<?php echo $row['id']; ?>"
-                            data-bs-toggle="modal" data-bs-target="#editStudentModal">Edit</a>
-                        <a href="#" class="btn btn-danger delete-student"
-                            data-id="<?php echo $row['class_id']; ?>">Delete</a>
-                    </td>
-                </tr>
-                <?php endwhile; ?>
+                        <tr>
+                            <td><?php echo $row['id']; ?></td>
+                            <td><?php echo $row['name']; ?></td>
+                            <td><?php echo $row['class_name'] . " (" . $row['num_group'] . ")"; ?></td>
+                            <td><?php echo $row['start_date']; ?></td>
+                            <td class="<?php echo $color_class; ?>"><?php echo $row['end_date']; ?></td>
+                            <td><?php echo $row['paid'] ? 'Paid' : 'Not Paid'; ?></td>
+                            <td>
+                                <a href="#" class="btn btn-info view-student" data-id="<?php echo $row['id']; ?>"
+                                    data-bs-toggle="modal" data-bs-target="#viewStudentModal">View</a>
+                                <a href="#" class="btn btn-warning edit-student" data-id="<?php echo $row['id']; ?>"
+                                    data-bs-toggle="modal" data-bs-target="#editStudentModal">Edit</a>
+                                <a href="#" class="btn btn-danger delete-student"
+                                    data-id="<?php echo $row['class_id']; ?>">Delete</a>
+                            </td>
+                        </tr>
+                    <?php endwhile; ?>
                 <?php else: ?>
-                <tr>
-                    <td colspan="7">No students found</td>
-                </tr>
+                    <tr>
+                        <td colspan="7">No students found</td>
+                    </tr>
                 <?php endif; ?>
             </tbody>
         </table>
@@ -250,116 +197,116 @@ $result = $conn->query($sql);
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-    $(document).ready(function() {
-        // Show/Hide class select based on filter option
-        $('#filter').on('change', function() {
-            if ($(this).val() === 'class') {
-                $('#classSelect').show();
-            } else {
-                $('#classSelect').hide();
-            }
-        });
-
-        // Load Add Student Form via AJAX
-        $('#addStudentModal').on('show.bs.modal', function(e) {
-            var modal = $(this);
-            $.ajax({
-                url: 'add.php',
-                method: 'GET',
-                success: function(data) {
-                    modal.find('.modal-body').html(data);
+        $(document).ready(function() {
+            // Show/Hide class select based on filter option
+            $('#filter').on('change', function() {
+                if ($(this).val() === 'class') {
+                    $('#classSelect').show();
+                } else {
+                    $('#classSelect').hide();
                 }
             });
-        });
 
-        // Load Edit Student Form via AJAX
-        $('#editStudentModal').on('show.bs.modal', function(e) {
-            var modal = $(this);
-            var studentId = $(e.relatedTarget).data('id');
-            $.ajax({
-                url: 'edit.php',
-                method: 'GET',
-                data: {
-                    id: studentId
-                },
-                success: function(data) {
-                    modal.find('.modal-body').html(data);
-                }
-            });
-        });
-
-        // Load View Student Details via AJAX
-        $('#viewStudentModal').on('show.bs.modal', function(e) {
-            var modal = $(this);
-            var studentId = $(e.relatedTarget).data('id');
-            $.ajax({
-                url: 'view.php',
-                method: 'GET',
-                data: {
-                    id: studentId
-                },
-                success: function(data) {
-                    modal.find('.modal-body').html(data);
-                }
-            });
-        });
-
-        // Handle delete student action
-        $('#studentsTable').on('click', '.delete-student', function(e) {
-            e.preventDefault();
-            var studentId = $(this).data('id');
-            if (confirm('Are you sure you want to delete this student?')) {
+            // Load Add Student Form via AJAX
+            $('#addStudentModal').on('show.bs.modal', function(e) {
+                var modal = $(this);
                 $.ajax({
-                    url: 'delete.php',
-                    method: 'POST',
+                    url: 'add.php',
+                    method: 'GET',
+                    success: function(data) {
+                        modal.find('.modal-body').html(data);
+                    }
+                });
+            });
+
+            // Load Edit Student Form via AJAX
+            $('#editStudentModal').on('show.bs.modal', function(e) {
+                var modal = $(this);
+                var studentId = $(e.relatedTarget).data('id');
+                $.ajax({
+                    url: 'edit.php',
+                    method: 'GET',
                     data: {
                         id: studentId
                     },
-                    success: function(response) {
-                        if (response === 'success') {
-                            location.reload();
-                        } else {
-                            alert('' + response);
-                            location.reload();
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        alert('An error occurred: ' + error);
+                    success: function(data) {
+                        modal.find('.modal-body').html(data);
                     }
                 });
-            }
-        });
+            });
 
-        // Real-time search functionality
-        $('#search').on('keyup', function() {
-            var searchText = $(this).val().toLowerCase();
-            $('#studentsTable tbody tr').each(function() {
-                var studentName = $(this).find('td').eq(1).text().toLowerCase();
-                var className = $(this).find('td').eq(2).text().toLowerCase();
-                if (studentName.includes(searchText) || className.includes(searchText)) {
-                    $(this).show();
-                } else {
-                    $(this).hide();
+            // Load View Student Details via AJAX
+            $('#viewStudentModal').on('show.bs.modal', function(e) {
+                var modal = $(this);
+                var studentId = $(e.relatedTarget).data('id');
+                $.ajax({
+                    url: 'view.php',
+                    method: 'GET',
+                    data: {
+                        id: studentId
+                    },
+                    success: function(data) {
+                        modal.find('.modal-body').html(data);
+                    }
+                });
+            });
+
+            // Handle delete student action
+            $('#studentsTable').on('click', '.delete-student', function(e) {
+                e.preventDefault();
+                var studentId = $(this).data('id');
+                if (confirm('Are you sure you want to delete this student?')) {
+                    $.ajax({
+                        url: 'delete.php',
+                        method: 'POST',
+                        data: {
+                            id: studentId
+                        },
+                        success: function(response) {
+                            if (response === 'success') {
+                                location.reload();
+                            } else {
+                                alert('' + response);
+                                location.reload();
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            alert('An error occurred: ' + error);
+                        }
+                    });
                 }
             });
-        });
 
-        // Sort functionality
-        $('#sort').on('change', function() {
-            var sortBy = $(this).val();
-            var rows = $('#studentsTable tbody tr').get();
-            rows.sort(function(a, b) {
-                var keyA = $(a).children('td').eq($('#sort option').index($(
-                    '#sort option[value="' + sortBy + '"]'))).text().toLowerCase();
-                var keyB = $(b).children('td').eq($('#sort option').index($(
-                    '#sort option[value="' + sortBy + '"]'))).text().toLowerCase();
-                return keyA.localeCompare(keyB);
+            // Real-time search functionality
+            $('#search').on('keyup', function() {
+                var searchText = $(this).val().toLowerCase();
+                $('#studentsTable tbody tr').each(function() {
+                    var studentName = $(this).find('td').eq(1).text().toLowerCase();
+                    var className = $(this).find('td').eq(2).text().toLowerCase();
+                    if (studentName.includes(searchText) || className.includes(searchText)) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
             });
-            $.each(rows, function(index, row) {
-                $('#studentsTable').children('tbody').append(row);
+
+            // Sort functionality
+            $('#sort').on('change', function() {
+                var sortBy = $(this).val();
+                var rows = $('#studentsTable tbody tr').get();
+                rows.sort(function(a, b) {
+                    var keyA = $(a).children('td').eq($('#sort option').index($(
+                        '#sort option[value="' + sortBy + '"]'))).text().toLowerCase();
+                    var keyB = $(b).children('td').eq($('#sort option').index($(
+                        '#sort option[value="' + sortBy + '"]'))).text().toLowerCase();
+                    return keyA.localeCompare(keyB);
+                });
+                $.each(rows, function(index, row) {
+                    $('#studentsTable').children('tbody').append(row);
+                });
             });
         });
-    });
     </script>
 </body>
 

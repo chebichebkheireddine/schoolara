@@ -29,63 +29,43 @@ $classes = $conn->query("SELECT id, name FROM classes");
     <title>Absence List</title>
     <link href="../assets/boostarb/style.css" rel="stylesheet">
     <style>
-    body {
-        display: flex;
-    }
+        body {
+            display: flex;
+        }
 
-    .sidebar {
-        width: 250px;
-        height: 100vh;
-        background-color: #343a40;
-        color: white;
-        padding: 20px;
-        position: fixed;
-        /* Make sidebar fixed */
-        top: 0;
-        left: 0;
-    }
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background-color: #343a40;
+            color: white;
+            padding: 20px;
+            position: fixed;
+            /* Make sidebar fixed */
+            top: 0;
+            left: 0;
+        }
 
-    .main-content {
-        margin-left: 250px;
-        /* Adjust for the fixed sidebar width */
-        padding: 20px;
-        width: calc(100% - 250px);
-        /* Adjust the width of main content */
-    }
+        .main-content {
+            margin-left: 250px;
+            /* Adjust for the fixed sidebar width */
+            padding: 20px;
+            width: calc(100% - 250px);
+            /* Adjust the width of main content */
+        }
 
-    .nav-link {
-        text-decoration: none;
-        /* Remove underline from nav links */
-        color: white;
-        /* Set text color to white */
-    }
+        .nav-link {
+            text-decoration: none;
+            /* Remove underline from nav links */
+            color: white;
+            /* Set text color to white */
+        }
     </style>
 </head>
 
 <body>
-    <div class="sidebar">
-        <h2><a href="../index.php" class="nav-link text-white">Dashboard</a></h2>
-        <ul class="nav flex-column">
-            <li class="nav-item">
-                <a href="../classes/list.php" class="nav-link text-white">Manage Classes</a>
-            </li>
-            <li class="nav-item">
-                <a href="../students/list.php" class="nav-link text-white">Manage Students</a>
-            </li>
-            <li class="nav-item">
-                <a href="../teachers/list.php" class="nav-link text-white">Manage Teachers</a>
-            </li>
-            <li class="nav-item">
-                <a href="list.php" class="nav-link text-white">Manage Absences</a>
-            </li>
-            <li class="nav-item">
-                <a href="../backup.php" class="nav-link text-white">Backup & Restore</a>
-            </li>
-            <li class="nav-item">
-                <a href="../logout.php" class="nav-link text-white">Logout</a>
-            </li>
-        </ul>
-    </div>
+    <?php
+    include("../sidebar.php");
+    ?>
     <div class="main-content">
         <h1>Absence List</h1>
         <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addAbsenceModal">
@@ -103,18 +83,18 @@ $classes = $conn->query("SELECT id, name FROM classes");
             </thead>
             <tbody>
                 <?php while ($row = $result->fetch_assoc()): ?>
-                <tr>
+                    <tr>
 
-                    <td><?php echo $row['student_name']; ?></td>
-                    <td><?php echo $row['class_name']; ?></td>
-                    <td><?php echo $row['date']; ?></td>
-                    <td>
-                        <form method="POST" action="delete.php" style="display:inline;">
-                            <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
-                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                        </form>
-                    </td>
-                </tr>
+                        <td><?php echo $row['student_name']; ?></td>
+                        <td><?php echo $row['class_name']; ?></td>
+                        <td><?php echo $row['date']; ?></td>
+                        <td>
+                            <form method="POST" action="delete.php" style="display:inline;">
+                                <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
                 <?php endwhile; ?>
             </tbody>
         </table>
@@ -135,8 +115,8 @@ $classes = $conn->query("SELECT id, name FROM classes");
                                 <label for="student_id" class="form-label">Student</label>
                                 <select class="form-select" id="student_id" name="student_id" required>
                                     <?php while ($student = $students->fetch_assoc()): ?>
-                                    <option value="<?php echo $student['id']; ?>"><?php echo $student['name']; ?>
-                                    </option>
+                                        <option value="<?php echo $student['id']; ?>"><?php echo $student['name']; ?>
+                                        </option>
                                     <?php endwhile; ?>
                                 </select>
                             </div>
@@ -144,7 +124,7 @@ $classes = $conn->query("SELECT id, name FROM classes");
                                 <label for="class_id" class="form-label">Class</label>
                                 <select class="form-select" id="class_id" name="class_id" required>
                                     <?php while ($class = $classes->fetch_assoc()): ?>
-                                    <option value="<?php echo $class['id']; ?>"><?php echo $class['name']; ?></option>
+                                        <option value="<?php echo $class['id']; ?>"><?php echo $class['name']; ?></option>
                                     <?php endwhile; ?>
                                 </select>
                             </div>

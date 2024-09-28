@@ -1,0 +1,93 @@
+
+
+/* Body code  */
+body {
+    display: flex;
+    background-color: #f8f9fa;
+}
+
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #343a40;
+    color: white;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.main-content {
+    margin-left: 250px;
+    padding: 20px;
+    width: calc(100% - 250px);
+    position: relative;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: white;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #adb5bd;
+}
+
+.logo {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 100px;
+}
+/* End Body Code  */
+/* Index Code  */
+.card-body {
+    background-color: #ffffff;
+}
+
+.table {
+    background-color: #ffffff;
+}
+
+.table thead {
+    background-color: #007bff;
+    color: white;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.table tbody tr:hover {
+    background-color: #e9ecef;
+}
+
+.btn-custom {
+    background-color: #007bff;
+    color: white;
+    border: none;
+}
+
+.btn-custom:hover {
+    background-color: #0056b3;
+    color: white;
+}
+/* End code Index */
+/* Student Code  */
+.red {
+    background-color: #f8d7da !important;
+}
+
+.orange {
+    background-color: #fff3cd !important;
+}
+
+.green {
+    background-color: #d4edda !important;
+}
+
+#classSelect {
+    display: none;
+}
+/*  */
